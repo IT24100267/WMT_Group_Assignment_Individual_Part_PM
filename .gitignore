@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+freshguard-backend/node_modules/
+freshguard-mobile/node_modules/
+
+# Environment files
+.env
+freshguard-backend/.env
+
+# Expo
+freshguard-mobile/.expo/
+freshguard-mobile/dist/
+
+# Logs
+*.log
+npm-debug.log*

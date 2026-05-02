@@ -42,24 +42,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
-    reorderLevel: {
-      type: Number,
-      required: [true, 'Reorder level is required'],
-      min: [0, 'Reorder level cannot be negative'],
-    },
-    stock: {
-      type: Number,
-      default: 0,
-    },
-    sold: {
-      type: Number,
-      default: 0,
-    },
-    riskLevel: {
-      type: String,
-      enum: ['LOW', 'MEDIUM', 'HIGH'],
-      default: 'LOW',
-    },
+    
   },
   { timestamps: true }
 );

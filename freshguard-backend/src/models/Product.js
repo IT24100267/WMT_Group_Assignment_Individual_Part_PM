@@ -38,6 +38,21 @@ const productSchema = new mongoose.Schema(
       required: [true, 'Selling price is required'],
       min: [0.01, 'Selling price must be greater than 0'],
     },
+    stock: {
+      type: Number,
+      default: 0,
+      min: [0, 'Stock cannot be negative'],
+    },
+    sales: {
+      type: Number,
+      default: 0,
+      min: [0, 'Sales cannot be negative'],
+    },
+    description: {
+      type: String,
+      trim: true,
+      default: '',
+    },
     imageUrl: {
       type: String,
       default: '',

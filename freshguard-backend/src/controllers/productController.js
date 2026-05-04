@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Product = require('../models/Product');
 
 // GET all products
@@ -13,15 +14,26 @@ const getAllProducts = async (req, res, next) => {
 // GET single product
 const getProductById = async (req, res, next) => {
   try {
-    const product = await Product.findOne({
-      $or: [{ productId: req.params.id }, { _id: req.params.id }],
-    });
+    const { id } = req.params;
+    
+    // Check if it's a valid MongoDB ObjectId or our custom productId format
+    const query = mongoose.Types.ObjectId.isValid(id) 
+      ? { $or: [{ productId: id }, { _id: id }] }
+      : { productId: id };
+
+    const product = await Product.findOne(query);
+    
     if (!product) {
       res.status(404);
       throw new Error('Product not found');
     }
     res.status(200).json(product);
   } catch (err) {
+    // Catch Mongoose CastError (invalid ID format) and return 404
+    if (err.name === 'CastError') {
+      res.status(404);
+      return next(new Error('Product not found'));
+    }
     next(err);
   }
 };

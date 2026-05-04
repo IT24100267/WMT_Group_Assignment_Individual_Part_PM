@@ -1,4 +1,12 @@
-const API_URL = 'http://localhost:5000/api/products';
+import Constants from 'expo-constants';
+
+const getApiUrl = () => {
+  const debuggerHost = Constants.expoConfig?.hostUri;
+  const ip = debuggerHost ? debuggerHost.split(':')[0] : 'localhost';
+  return `http://${ip}:5005/api/products`;
+};
+
+const API_URL = getApiUrl();
 
 export const getProducts = async () => {
   const response = await fetch(API_URL);
@@ -38,4 +46,27 @@ export const deleteProduct = async (id) => {
   });
   const data = await response.json();
   return data;
+};
+
+export const uploadImage = async (uri) => {
+  const formData = new FormData();
+  const filename = uri.split('/').pop();
+  const match = /\.(\w+)$/.exec(filename);
+  const type = match ? `image/${match[1]}` : `image`;
+
+  formData.append('image', { uri, name: filename, type });
+
+  const response = await fetch(`${API_URL}/upload`, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Upload failed');
+  }
+
+  return await response.json();
 };

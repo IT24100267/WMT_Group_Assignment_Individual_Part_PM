@@ -46,8 +46,8 @@
       "reactCompiler": true
     },
     "extra": {
-      "apiBaseUrlWeb": "https://invigo-freshguard-mobile-production-f6e0.up.railway.app",
-      "apiBaseUrlNative": "https://invigo-freshguard-mobile-production-f6e0.up.railway.app"
+      "apiBaseUrlWeb": "https://wmtgroupassignmentindividualpartpm-production.up.railway.app",
+      "apiBaseUrlNative": "https://wmtgroupassignmentindividualpartpm-production.up.railway.app"
     }
   }
 }

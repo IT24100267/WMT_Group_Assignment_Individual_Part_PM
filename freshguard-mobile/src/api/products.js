@@ -1,6 +1,13 @@
 import Constants from 'expo-constants';
 
 const getApiUrl = () => {
+  // Use the production URL from app.json if we're not in development mode
+  const productionUrl = Constants.expoConfig?.extra?.apiBaseUrlNative;
+  if (productionUrl && !__DEV__) {
+    return `${productionUrl}/api/products`;
+  }
+
+  // Fallback to local IP for development
   const debuggerHost = Constants.expoConfig?.hostUri;
   const ip = debuggerHost ? debuggerHost.split(':')[0] : 'localhost';
   return `http://${ip}:5005/api/products`;

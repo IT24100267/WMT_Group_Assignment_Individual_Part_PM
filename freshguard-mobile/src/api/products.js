@@ -1,8 +1,8 @@
 import Constants from 'expo-constants';
 
 const getApiUrl = () => {
-  // Use the production URL from app.json if we're not in development mode
-  const productionUrl = Constants.expoConfig?.extra?.apiBaseUrlNative;
+  // Use the production URL from .env if available
+  const productionUrl = process.env.EXPO_PUBLIC_API_URL;
   if (productionUrl && !__DEV__) {
     return `${productionUrl}/api/products`;
   }
